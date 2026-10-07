@@ -1,33 +1,48 @@
 import * as movieService from "../services/movie.js";
-const getMovies = (req,res)=>{
-    res.send({records: movieService.getMovies()});
+
+const getMovies = async (req, res) => {
+    res.send({ records: await movieService.getMovies(req.query) });
 };
 
-const getRandomMovie = (req,res)=>{
-    res.send({movie: movieService.getRandomMovie()});
-};
+const getById = async (req, res) => {
+    const identifiedMovie = await movieService.getById(req.params.id);
 
-const search = (req,res)=>{
-    const identifiedMovie = movieService.search(req.query.title);
-    if(!!identifiedMovie){
-        res.send({movie:identifiedMovie0});
-    } else{
-        res.status(404).send({message: "Movie not found"});
-    }
-};
-
-const getById = (req,res)=>{
-    const identifiedMovie = movieService.getById(req.params.id);
-    if(!!identifiedMovie){
-       res.send({movie: identifiedMovie}) 
+    if (!!identifiedMovie) {
+        res.send({ movie: identifiedMovie });
     } else {
-        res.status(404).send({message: "Movie not found"});
+        res.status(404).send();
     }
 };
 
-const create = (req,res)=>{
-    movieService.create(req.body.title);
-    res.status(201).send({result: "Movie was created"});
-}
+const create = async (req, res) => {
+    if (!req.body.title || !req.body.director || !req.body.year) {
+        return res.status(400).send({
+            message: "Missing title, director or year"
+        });
+    }
 
-export {getMovies, getRandomMovie, search, getById, create};
+    try {
+        const movie = await movieService.create(req.body);
+        res.status(201).send({ movie: movie });
+    } catch (ex) {
+        res.status(500).send({ message: ex.message });
+    }
+};
+
+const update = async (req, res) => {
+    if (!req.body.id) {
+        return res.status(400).send({
+            message: "Movie id is mandatory"
+        });
+    }
+
+    await movieService.update(req.body);
+    res.status(204).send();
+};
+
+const remove = async (req, res) => {
+    await movieService.remove(req.params.id);
+    res.send();
+};
+
+export { getMovies, getById, create, update, remove };
