@@ -1,6 +1,6 @@
 import {db} from './config.js';
-import pkg from 'sequelize';
-const {DataTypes} = pkg;
+import {DataTypes} from 'sequelize';
+
 export const movies = ["Synechdoche","New York", "i'm thinking of ending things", "mother!", "Aloners", "Blue Valentine"];
 export const Movie = db.define("Movie", {
     id:{
@@ -14,14 +14,14 @@ export const Movie = db.define("Movie", {
     },
     year:{
         type:DataTypes.INTEGER,
-        allowNull:false,
+        allowNull:true,
         validate:{
             min:1900
         }
     },
     director:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:true
     },
     genre:{
         type:DataTypes.STRING,
@@ -30,7 +30,8 @@ export const Movie = db.define("Movie", {
         type:DataTypes.TEXT
     },
     duration:{
-        type:DataTypes.TINYINT
+        type:DataTypes.INTEGER,
+        allowNull:true
     },
     poster:{
         type:DataTypes.STRING

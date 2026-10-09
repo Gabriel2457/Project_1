@@ -4,7 +4,7 @@ export const db = new Sequelize({
     storage: "action.db"
 });
 
-export const synchronizeDatabase = async () => {
+export const sychronizeDatabase = async () => {
     await db.authenticate();
     await db.sync();
 };

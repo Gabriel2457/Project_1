@@ -4,7 +4,11 @@ import * as movieController from "../controllers/movie.js";
 export const router = express.Router();
 
 router.get("/", movieController.getMovies);
-router.get("/random", movieController.getRandomMovie);
-router.get("/search", movieController.search);
+
+router.put("/update", movieController.update);
+
+router.delete("/remove/:id", movieController.remove);
+
 router.get("/:id", movieController.getById);
+
 router.post("/create", movieController.create);
