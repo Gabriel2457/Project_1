@@ -1,0 +1,16 @@
+.header {
+  background-color: #201335;
+  height: 60px;
+  color: white;
+  /* using a flex container that ensures automatic resizing of the header */
+  display: flex;
+  align-items: center;
+  /* styling the padding on the left side of the element */
+  padding-left: 20px;
+}
+
+.app-title {
+  /* styling the size and style of the font used */
+  font-weight: bold;
+  font-size: 16px;
+}

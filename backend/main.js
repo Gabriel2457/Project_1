@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import { router as movieRouter } from "./routes/movie.js";
-import * as movieController from "./controllers/movie.js";
 import { sychronizeDatabase } from "./models/config.js";
 import { Movie, movies } from "./models/movie.js";
 
@@ -11,8 +10,16 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/", movieController.getMovies);
-app.use("/movies", movieRouter);
+//Changing the file URL path while implementing the "movies" route
+//If we want to separate them (URL versioning) we can write like this:
+
+//const apiRouter = express.Router();
+
+// apiRouter.use("/movies", movieRouter);
+
+// app.use("/api/v1", apiRouter); 
+
+app.use("/api/v1/movies", movieRouter);
 
 const server = app.listen(PORT, async () => {
     try {
@@ -25,7 +32,7 @@ const server = app.listen(PORT, async () => {
             });
         }
 
-        console.log(`Server started on http://localhost:${PORT}`);
+        console.log(`Server started on http://localhost:${PORT}/api/v1/movies`);
     } catch (err) {
         console.log("There was an error with the database connection");
         console.error(err);

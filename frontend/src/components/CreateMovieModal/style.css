@@ -1,0 +1,41 @@
+/* Styling the modal */
+.modal {
+  /* the default positioning of the modal is absolute, so it can be placed at the beginning of the parent */
+  top: 0;
+  /* covering the entire available space from the parent */
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0px;
+  /* using a background color, together with a transparency coefficient */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* positioning the element absolutely at the beginning of the page */
+  display: block;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #000;
+  border-radius: 20px;
+  width: 50%;
+}
+
+.modal-header {
+  display: flex;
+}
+
+.modal-header h2 {
+  flex: 1;
+}
+
+.modal-close {
+  cursor: pointer;
+}
+
+.create-form {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
