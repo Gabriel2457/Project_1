@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { router as movieRouter } from "./routes/movie.js";
 import * as movieController from "./controllers/movie.js";
 import { sychronizeDatabase } from "./models/config.js";
@@ -8,9 +9,10 @@ const PORT = 8080;
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", movieController.getMovies);
-app.use("/movie", movieRouter);
+app.use("/movies", movieRouter);
 
 const server = app.listen(PORT, async () => {
     try {
