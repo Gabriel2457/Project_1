@@ -124,7 +124,7 @@
 - #### the package.json file ####
     * contains information about the project, its dependencies, build and run scripts, as well as other configurations
 
-### Model ###
+### Model (without Router + Redux) ###
 ```cmd
     src/
     ├── pages/
@@ -144,7 +144,66 @@
     └── ... // can contain services, util functions etc.
 ```
 
+## React using path shortcuts for a better dynamic approach ##
+### Model (Router + Redux) ###
+
+```cmd
+    src/
+    ├── pages/
+    |   └── Movies
+    │       └── index.jsx
+    │       └── style.css
+    ├── actions/ **
+    |   └── movies.js *
+    ├── reducers/ **
+    |   └── index.js *
+    |   └── movies.js *
+    ├── stores/ **
+    |   └── store.js *
+    ├── components/
+    │   └── MovieCard
+    │       └── index.jsx
+    │       └── style.css
+    │   └── CreateMovieModal
+    │       └── index.jsx
+    │       └── style.css
+    |   └── Searchbar
+    │       └── index.jsx
+    │       └── style.css
+    └── ... // can contain services, util functions etc.
+```
+### Concepts: ###
+
+- **STORE** (the global "database")
+
+    * an object that contains the entire application state
+    * the state is modified only through special functions called reducers
+
+- **REDUCERS**
+
+    * a pure function (for the same input, always returns the same output) that modifies the current state as a result of an action
+    * receives the current state and an action and returns a new state
+
+- **ACTION**
+
+    * objects that describe the intention to modify the state
+    * are sent to reducers
+
+- **ACTION CREATORS**
+
+* functions used to create action objects
+usually called right before dispatch
+
+- **DISPATCH**
+
+    * the process of sending an action to the store
+
+- **MIDDLEWARE**
+
+    * additional functionality that can be introduced between sending an action and its processing by the reducer
+    * e.g., logging
+
 ### Important Notes (no urgent matter):
 - **try to make a simillar project at the end of the lectures (this was lecture 11)**
 - **try to play more with React and see information system design, OOP and database structures**
-- **learn Docker, Postman, PostgreeSQL and recap MongoDB**
+- **learn Docker, Postman, PostgreSQL and recap MongoDB**
