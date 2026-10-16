@@ -1,30 +1,66 @@
-import React, {useState} from "react";
+
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+
 import "./style.css";
-const Searchbar = ({openModal, getMovies})=>{
-    const [queryTitle, setQueryTitle] = useState(null);
-    const onChangedQueryTitle= (event)=>{
-        const searchedMovieTitle = event.target.value;
-        setQueryTitle(searchedMovieTitle);
-    };
+import { setSearchTitle } from "../../actions/movies";
 
-    return (
-        <div>
-            <input
-                onChange={onChangedQueryTitle}
-                id="search"
-                className="searchbar custom-text-input"
-                type="text"
-                placeholder="Search for a movie"
-            />
-            <button className="custom-button" onClick={()=>getMovies(queryTitle)}>
-                Search
-            </button>
+const Searchbar = ({ openModal, getMovies }) => {
+  const queryTitle = useSelector(
+    (state) => state.movies.searchTitle
+  );
 
-            <button className="custom-button" onClick={()=>openModal()}>
-                Add a movie
-            </button> 
-        </div>
-    );
+  const dispatch = useDispatch();
+  const [temporaryQueryTitle, setTemporaryQueryTitle] =
+    useState(queryTitle);
+
+  const navigate = useNavigate();
+
+  const searchMovie = (title) => {
+    dispatch(setSearchTitle(title));
+    getMovies(title);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    searchMovie(temporaryQueryTitle.trim());
+  };
+
+  return (
+    <div className="toolbar">
+      <form onSubmit={handleSearch}>
+        <input
+          value={temporaryQueryTitle}
+          onChange={(event) =>
+            setTemporaryQueryTitle(event.target.value)
+          }
+          id="search"
+          className="searchbar custom-text-input"
+          type="text"
+          placeholder="Search for a movie"
+        />
+
+        <button className="custom-button" type="submit">
+          Search
+        </button>
+      </form>
+
+      <button
+        className="custom-button"
+        onClick={openModal}
+      >
+        Add a movie
+      </button>
+
+      <button
+        className="custom-button"
+        onClick={() => navigate("/series")}
+      >
+        Series Page
+      </button>
+    </div>
+  );
 };
 
-export {Searchbar};
+export { Searchbar };

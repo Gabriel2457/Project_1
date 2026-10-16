@@ -1,134 +1,131 @@
-import {useState} from "react";
-const CreateMovieModal = ({onAddMovie, closeModal})=>{
-    const [title, setTitle] = useState("");
-    const [year, setYear]= useState(0);
-    const [director, setDirector] = useState("");
-    const [genre, setGenre] = useState("");
-    const [synopsis, setSynopsis] = useState("");
-    const [duration, setDuration] = useState(0);
-    const [poster, setPoster] = useState("");
 
-    const onChangeTitle = (event)=>{
-        setTitle(event.target.value);
+import { useState } from "react";
+import "./style.css";
+
+const CreateMovieModal = ({ onAddMovie, closeModal }) => {
+  const [title, setTitle] = useState("");
+  const [year, setYear] = useState("");
+  const [director, setDirector] = useState("");
+  const [genre, setGenre] = useState("");
+  const [synopsis, setSynopsis] = useState("");
+  const [duration, setDuration] = useState("");
+  const [poster, setPoster] = useState("");
+
+  const saveMovie = (event) => {
+    event.preventDefault();
+
+    const movie = {
+      title: title.trim(),
+      year: year === "" ? null : Number(year),
+      director: director.trim(),
+      genre: genre.trim(),
+      synopsis: synopsis.trim(),
+      duration: duration === "" ? null : Number(duration),
+      poster: poster.trim()
     };
 
-    const onChangeYear = (event)=>{
-        setYear(event.target.value);
-    };
+    onAddMovie(movie);
+    closeModal();
+  };
 
-    const onChangeDirector = (event)=>{
-        setDirector(event.target.value);
-    };
+  return (
+    <dialog id="CreateMovieModal" className="modal" open>
+      <div className="modal-content">
+        <div className="modal-header">
+          <h2>Add movie</h2>
 
-    const onChangeGenre = (event)=>{
-        setGenre(event.target.value);
-    };
+          <button
+            type="button"
+            className="modal-close"
+            onClick={closeModal}
+            aria-label="Close modal"
+          >
+            &times;
+          </button>
+        </div>
 
-    const onChangeSynopsis = (event)=>{
-        setSynopsis(event.target.value);
-    };
+        <form
+          id="addMovieForm"
+          className="create-form"
+          onSubmit={saveMovie}
+        >
+          <label htmlFor="title">Title:</label>
+          <input
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            className="custom-text-input"
+            type="text"
+            id="title"
+            name="title"
+            required
+          />
 
-    const onChangeDuration = (event)=>{
-        setDuration(event.target.value);
-    };
+          <label htmlFor="year">Year:</label>
+          <input
+            value={year}
+            onChange={(event) => setYear(event.target.value)}
+            className="custom-text-input"
+            type="number"
+            id="year"
+            name="year"
+          />
 
-    const onChangePoster = (event)=>{
-        setPoster(event.target.value);
-    };
-    
-    const saveMovie = (event)=>{
-        event.preventDefault();
-        onAddMovie({title, year, director, genre, synopsis, duration, poster});
-        closeModal();
-    };
+          <label htmlFor="director">Director:</label>
+          <input
+            value={director}
+            onChange={(event) => setDirector(event.target.value)}
+            className="custom-text-input"
+            type="text"
+            id="director"
+            name="director"
+          />
 
-    return (
-        <dialog id="CreateMovieModal" classname="modal">
-            <div className="modal-content">
-                <div className= "modal-header">
-                    <h2>Add movie</h2>
-                    <span className="modal-close" onClick={closeModal}>
-                        &times; {/*This is a "close" icon; the default icons are known with the & sign*/}
-                    </span>
-                </div>
-                <form id="addMovieForm" className="create-form">
-                    <label htmlFor="title">Title:</label>
-                    <input
-                        onChange={onChangeTitle}
-                        className="custom-text-input"
-                        type="text"
-                        id="title"
-                        name="title"
-                        required
-                    />
-                    <br/>
+          <label htmlFor="genre">Genre:</label>
+          <input
+            value={genre}
+            onChange={(event) => setGenre(event.target.value)}
+            className="custom-text-input"
+            type="text"
+            id="genre"
+            name="genre"
+          />
 
-                    <label htmlFor="year">Year:</label>
-                    <input
-                        onChange={onChangeYear}
-                        className="custom-text-input"
-                        type="number"
-                        id="year"
-                        name="year"
-                    />
-                    <br />
+          <label htmlFor="synopsis">Synopsis:</label>
+          <textarea
+            value={synopsis}
+            onChange={(event) => setSynopsis(event.target.value)}
+            className="custom-text-input"
+            id="synopsis"
+            name="synopsis"
+          />
 
-                    <label htmlFor="director">Director:</label>
-                    <input
-                        onChange={onChangeDirector}
-                        className="custom-text-input"
-                        type="text"
-                        id="director"
-                        name="director"
-                    />
-                    <br />
+          <label htmlFor="duration">Duration (minutes):</label>
+          <input
+            value={duration}
+            onChange={(event) => setDuration(event.target.value)}
+            className="custom-text-input"
+            type="number"
+            id="duration"
+            name="duration"
+          />
 
-                    <label htmlFor="genre">Genre:</label>
-                    <input
-                        onChange={onChangeGenre}
-                        className="custom-text-input"
-                        type="text"
-                        id="genre"
-                        name="genre"
-                    />
-                    <br />
+          <label htmlFor="poster">Poster URL:</label>
+          <input
+            value={poster}
+            onChange={(event) => setPoster(event.target.value)}
+            className="custom-text-input"
+            type="url"
+            id="poster"
+            name="poster"
+          />
 
-                    <label htmlFor="synopsis">Synopsis:</label>
-                    <textarea
-                        onChange={onChangeSynopsis}
-                        className="custom-text-input"
-                        id="synopsis"
-                        name="synopsis"
-                    ></textarea>
-                    <br />
-
-                    <label htmlFor="duration">Duration (minutes):</label>
-                    <input
-                        onChange={onChangeDuration}
-                        className="custom-text-input"
-                        type="number"
-                        id="duration"
-                        name="duration"
-                    />
-                    <br />
-
-                    <label htmlFor="poster">Poster URL:</label>
-                    <input
-                        onChange={onChangePoster}
-                        className="custom-text-input"
-                        type="url"
-                        id="poster"
-                        name="poster"
-                    />
-                    <br />
-
-                    <button className="custom-button" onClick={saveMovie}>
-                        Save
-                    </button>
-                </form>
-            </div>
-        </dialog>
-    );
+          <button className="custom-button" type="submit">
+            Save
+          </button>
+        </form>
+      </div>
+    </dialog>
+  );
 };
 
-export {CreateMovieModal};
+export { CreateMovieModal };

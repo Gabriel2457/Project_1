@@ -1,15 +1,32 @@
-import {Movies} from "./pages/Movies";
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+
+import { Movies } from "./pages/Movies";
+import { Home } from "./pages/Home";
+import { NotFound } from "./pages/NotFound";
+
 import "./App.css";
 
-function App(){
-  return(
+function App() {
+  return (
     <div className="App">
       <div className="header">
-        <div className="app-title"> Action! </div>
+        <div className="app-title">Action!</div>
       </div>
-      <Movies/>
+
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
     </div>
   );
-};
+}
 
 export default App;
