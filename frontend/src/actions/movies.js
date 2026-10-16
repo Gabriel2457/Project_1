@@ -31,3 +31,5 @@ export function setSearchTitle(title){
     };
 };
 
+//in this file, we prepare the labels of the the respective actions. Actions have to be sent as objects
+//to the records in order to represent the state of the used operation

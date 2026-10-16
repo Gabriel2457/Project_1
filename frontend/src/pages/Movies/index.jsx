@@ -19,7 +19,10 @@ const SERVER_URL = "http://localhost:8080/api/v1";
 const Movies = () => {
   const dispatch = useDispatch();
 
-  // The reducer stores the array in state.movies.data
+  // The selector sends data to the physical dataset (state.movies.data)
+  // If, let's say, we were to send an object, then we would of used state.movies
+  // useSelector() is generaly used to access the stored data in the item
+
   const movies = useSelector((state) => state.movies.data);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,6 +61,12 @@ const Movies = () => {
         }
         return res.json();
       })
+
+      //for the option bellow, we send objects (or chunks of data) to a JSON record list
+      //actions are stored in a file named actions and one of them (addMovie) is used to modify the data
+      //dispatch is used in order to send the said action to the store (could give the general idea of a deposit
+      // but store can be used with the concept of "Order of operations" or "sync and async commands" (need to
+      // to clarify this after a little bit of research) 
       .then((data) => {
         dispatch(addMovie(data.movie));
       })
@@ -81,7 +90,7 @@ const Movies = () => {
   useEffect(() => {
     getMovies();
   }, []);
-
+  //a modal is a separate window (not page) after an action was sent (like a form or pressing a signin button)
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -91,12 +100,15 @@ const Movies = () => {
         <h3>All movies</h3>
 
         <Searchbar
+        //this features are called props and the concept of inheriting the props is called prop drilling 
+        // the following is a made prop while the className="" is a default prop
           openModal={openModal}
           getMovies={getMovies}
         />
 
         <div id="moviesContainer">
           {movies.map((movie) => (
+            //this is called a custom component
             <MovieCard
               movie={movie}
               key={movie.id}

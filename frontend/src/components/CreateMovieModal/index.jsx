@@ -40,6 +40,7 @@ const CreateMovieModal = ({ onAddMovie, closeModal }) => {
             onClick={closeModal}
             aria-label="Close modal"
           >
+          {/*It sends a default icon*/}
             &times;
           </button>
         </div>
