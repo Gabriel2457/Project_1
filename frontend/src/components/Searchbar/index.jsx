@@ -2,11 +2,10 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-
 import "./style.css";
 import { setSearchTitle } from "../../actions/movies";
 
-const Searchbar = ({ openModal, getMovies }) => {
+const Searchbar = ({ openModal, getMovies, switchView }) => {
   const queryTitle = useSelector(
     (state) => state.movies.searchTitle
   );
@@ -41,14 +40,24 @@ const Searchbar = ({ openModal, getMovies }) => {
           placeholder="Search for a movie"
         />
 
-        <button className="custom-button" type="submit">
+        <button 
+          className="custom-button"
+          onClick={()=>searchMovie(temporaryQueryTitle)} 
+        >
           Search
         </button>
       </form>
 
       <button
         className="custom-button"
-        onClick={openModal}
+        onClick={() => switchView()}
+      >
+        Switch view
+      </button>
+
+      <button
+        className="custom-button"
+        onClick={() => openModal()}
       >
         Add a movie
       </button>

@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  addMovie,
-  deleteMovie,
-  setMovies
+  addMovie as addMovieAction,
+  deleteMovie as deleteMovieAction,
+  setMovies as setMoviesAction
 } from "../../actions/movies";
 
-import { MovieCard } from "../../components/MovieCard";
+import {MovieList} from "../../components/MovieList";
+import {MovieTable} from "../../components/MovieTable";
+
 import { CreateMovieModal } from "../../components/CreateMovieModal";
 import { Searchbar } from "../../components/Searchbar";
 
@@ -26,6 +28,7 @@ const Movies = () => {
   const movies = useSelector((state) => state.movies.data);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [viewMode,setViewMode] = useState("list");
 
   const getMovies = (queryTitle) => {
     const queryParams = new URLSearchParams();
@@ -42,7 +45,7 @@ const Movies = () => {
         return res.json();
       })
       .then((data) => {
-        dispatch(setMovies(data.records));
+        dispatch(setMoviesAction(data.records));
       })
       .catch((err) => console.error("Error fetching movies:", err));
   };
@@ -68,7 +71,7 @@ const Movies = () => {
       // but store can be used with the concept of "Order of operations" or "sync and async commands" (need to
       // to clarify this after a little bit of research) 
       .then((data) => {
-        dispatch(addMovie(data.movie));
+        dispatch(addMovieAction(data.movie));
       })
       .catch((err) => console.error("Error adding movie:", err));
   };
@@ -82,7 +85,7 @@ const Movies = () => {
           throw new Error("Failed to delete movie");
         }
 
-        dispatch(deleteMovie(movie.id));
+        dispatch(deleteMovieAction(movie.id));
       })
       .catch((err) => console.error("Error deleting movie:", err));
   };
@@ -94,6 +97,11 @@ const Movies = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  const switchView = () => {
+    // the switchView method will update the viewing mode through a pseudo "toggle" mechanism
+    setViewMode(viewMode=== "list"? "table" : "list");
+  };
+
   return (
     <div>
       <div className="container">
@@ -104,25 +112,19 @@ const Movies = () => {
         // the following is a made prop while the className="" is a default prop
           openModal={openModal}
           getMovies={getMovies}
+          switchView={switchView}
         />
-
-        <div id="moviesContainer">
-          {movies.map((movie) => (
-            //this is called a custom component
-            <MovieCard
-              movie={movie}
-              key={movie.id}
-              onDelete={deleteMovieHandler}
-            />
-          ))}
-        </div>
       </div>
+      {/* depending on the viewMode property value, one of the two viewing components will be displayed */}
+      {viewMode === "list" &&(
+        <MovieList movies={movies} deleteMovie={deleteMovieHandler}/>
+      )}
+      {viewMode === "table" &&(
+        <MovieTable movies={movies} deleteMovie={deleteMovieHandler}/>
+      )}
 
       {isModalOpen && (
-        <CreateMovieModal
-          onAddMovie={addMovieHandler}
-          closeModal={closeModal}
-        />
+        <CreateMovieModal onAddMovie={addMovieHandler} closeModal={closeModal}/>
       )}
     </div>
   );
