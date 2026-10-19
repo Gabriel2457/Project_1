@@ -89,7 +89,7 @@
         );
     }
     ```
-### FRONTEND SETUP (React + Vite )###
+### FRONTEND SETUP (React + Vite ) ###
 ```cmd
     npm create vite@latest front-end-react -- --template react
 ```
@@ -207,3 +207,51 @@ usually called right before dispatch
 - **try to make a simillar project at the end of the lectures (this was lecture 11)**
 - **try to play more with React and see information system design, OOP and database structures**
 - **learn Docker, Postman, PostgreSQL and recap MongoDB**
+
+### FRONTEND SETUP (using Material UI - the last category) ###
+
+```cmd
+    src/
+    ├── pages/
+    |   └── Movies
+    │       └── index.jsx
+    │       └── style.css
+    ├── actions/
+    |   └── movies.js
+    ├── reducers/
+    |   └── index.js
+    |   └── movies.js
+    ├── stores/
+    |   └── store.js
+    ├── components/
+    │   └── MovieCard
+    │       └── index.jsx
+    │       └── style.css
+    │   └── MovieList/ **
+    │       └── index.jsx *
+    │       └── style.css *
+    │   └── MovieTable/ **
+    │       └── index.jsx *
+    │       └── style.css *
+    │   └── CreateMovieModal
+    │       └── index.jsx
+    │       └── style.css
+    |   └── Searchbar
+    │       └── index.jsx
+    │       └── style.css
+    └── ... // can contain services, util functions etc.
+```
+- It is inspired by Google concept of Material UI (basically it's more of pastel-like and geometrical wise setup that makes the overall interface more user friendly)
+- It's not a matter of configuration or setup, but more of a convention for design structure and color palete
+
+### In order to use MUI you shall install: ###
+
+* @mui/material @emotion/react
+* @emotion/styled
+* @mui/x-data-grid
+* @mui/icons-material
+
+## MODIFIED FILES ##
+
+- ### *MovieCard (we are now using a MovieTable and MovieList component to process, update and show the entire database. MovieCard is used just for the design of all movie cards which is understandable considering what backend must show)* ###
+- ### *Searchbar (we add a switch button to the searchbar)* ###
