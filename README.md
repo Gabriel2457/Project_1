@@ -5,7 +5,7 @@
  - [x] **Not recognized import sequelize (issue with the file version)**
  - [x] **implementing random movies (not in use anymore because now i have a database and an ORM model)**
  - [x] **Database handling (i make the connection through the route ... model ... config.js and execute in main.js file by calling the bulk operation)**
-### Important Notes:
+### **Important Notes:**
 - **learn http flags** (1.x.x, 2.x.x, 3.x.x, 4.x.x, 5.x.x)
 
 ## 14/10/2026 Frontend (first React + Vite code)
@@ -203,11 +203,6 @@ usually called right before dispatch
     * additional functionality that can be introduced between sending an action and its processing by the reducer
     * e.g., logging
 
-### Important Notes (no urgent matter):
-- **try to make a simillar project at the end of the lectures (this was lecture 11)**
-- **try to play more with React and see information system design, OOP and database structures**
-- **learn Docker, Postman, PostgreSQL and recap MongoDB**
-
 ### FRONTEND SETUP (using Material UI - the last category) ###
 
 ```cmd
@@ -244,6 +239,11 @@ usually called right before dispatch
 - It is inspired by Google concept of Material UI (basically it's more of pastel-like and geometrical wise setup that makes the overall interface more user friendly)
 - It's not a matter of configuration or setup, but more of a convention for design structure and color palete
 
+## MODIFIED FILES ##
+
+- ### *MovieCard (we are now using a MovieTable and MovieList component to process, update and show the entire database. MovieCard is used just for the design of all movie cards which is understandable considering what backend must show)* ###
+- ### *Searchbar (we add a switch button to the searchbar)* ###
+
 ### In order to use MUI you shall install: ###
 
 * @mui/material @emotion/react
@@ -251,7 +251,8 @@ usually called right before dispatch
 * @mui/x-data-grid
 * @mui/icons-material
 
-## MODIFIED FILES ##
 
-- ### *MovieCard (we are now using a MovieTable and MovieList component to process, update and show the entire database. MovieCard is used just for the design of all movie cards which is understandable considering what backend must show)* ###
-- ### *Searchbar (we add a switch button to the searchbar)* ###
+### **Important Notes (no urgent matter):**
+- **try to make a simillar project at the end of the lectures (this was lecture 11)**
+- **try to play more with React and see information system design, OOP and database structures**
+- **learn Docker, Postman, PostgreSQL and recap MongoDB**
